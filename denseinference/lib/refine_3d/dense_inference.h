@@ -61,11 +61,11 @@ public:
   void set_bi_z_std(float BilateralZStd);
 
   // set feature space from numpy array
-  void set_feature(boost::python::numeric::array feature, int feat_row, int feat_col, int feat_slc, int feat_channel, const std::string &numpy_data_type);
+  void set_feature(boost::python::numpy::ndarray feature, int feat_row, int feat_col, int feat_slc, int feat_channel, const std::string &numpy_data_type);
   PyObject* get_feature();
 
   // set image volume
-  void set_image(boost::python::numeric::array image, int img_row, int img_col, int img_slc, const std::string &numpy_data_type);
+  void set_image(boost::python::numpy::ndarray image, int img_row, int img_col, int img_slc, const std::string &numpy_data_type);
   PyObject* get_image();
 
   // here the actual calculation happens

@@ -12,7 +12,7 @@
 
 #include <boost/python.hpp>
 #include "boost/python/extract.hpp"
-#include "boost/python/numeric.hpp"
+#include "boost/python/numpy.hpp"
 #include "boost/python/tuple.hpp"
 #include <numpy/ndarrayobject.h>
 
@@ -25,6 +25,9 @@
 #include "dense_inference.h"
 
 using namespace boost::python;
+
+namespace p = boost::python;
+namespace np = boost::python::numpy;
 
 //////////////////////////////////
 /////  Initialize / Dealloc  /////
@@ -119,13 +122,13 @@ void DenseCRF3DProcessor::calc_unary( float * unary, float * feat, int feat_row,
 ////////////////////////////////////////////////////////////////
 ///// Image and Feature Volume (and BilateralZStd) Setters /////
 ////////////////////////////////////////////////////////////////
-void DenseCRF3DProcessor::set_feature( boost::python::numeric::array feature, int feat_row, int feat_col, int feat_slc, int feat_channel, const std::string &numpy_data_type ) {
+void DenseCRF3DProcessor::set_feature( np::ndarray feature, int feat_row, int feat_col, int feat_slc, int feat_channel, const std::string &numpy_data_type ) {
   // first tidy up
   if (feat_ != NULL)
     delete [] feat_;
 
   if(numpy_data_type == "float64") {
-      boost::python::numeric::array in = feature;
+      np::ndarray in = feature;
 
       // set shape
       feat_row_ = feat_row;
@@ -158,13 +161,13 @@ PyObject* DenseCRF3DProcessor::get_feature() {
   return stdVecToPyListFloat(v);
 }
 // image packing order is std fortran order, like numpy.ravel(img, order='F'), expects image with dynamic range [0, 1]
-void DenseCRF3DProcessor::set_image( boost::python::numeric::array image, int img_row, int img_col, int img_slc, const std::string &numpy_data_type ) {
+void DenseCRF3DProcessor::set_image( np::ndarray image, int img_row, int img_col, int img_slc, const std::string &numpy_data_type ) {
   // first tidy up
   if (img_ != NULL)
     delete [] img_;
 
   if (numpy_data_type == "float64") {
-    boost::python::numeric::array in = image;
+    np::ndarray in = image;
 
     // set shape
     img_row_ = img_row;
@@ -315,7 +318,7 @@ PyObject* DenseCRF3DProcessor::calc_res_array() {
 
 // Expose classes and methods to Python
 BOOST_PYTHON_MODULE(dense_inference) {
-  boost::python::numeric::array::set_module_and_type("numpy", "ndarray");
+  //np::ndarray::set_module_and_type("numpy", "ndarray");
 
   class_<DenseCRF3DProcessor>("DenseCRF3DProcessor", init<>())
     .def(init<int, float, float, float, float, float, float, float, float, float, bool>())
