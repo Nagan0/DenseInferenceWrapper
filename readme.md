@@ -45,7 +45,6 @@ cd DenseInferenceWrapper
 sudo apt-get install build-essential
 sudo apt-get install libboost-all-dev
 sudo apt-get install python-numpy
-sudo apt -y install libpython2.7-dev libboost-python-dev
 make all
 sudo pip install .
 ```
