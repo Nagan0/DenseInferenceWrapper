@@ -19,6 +19,9 @@ for more information.
 
 ## Setup
 
+#### Updates on top of the original repo
+The original git repo uses obsolete version of boost (this version of the repo is tested in boost version 1.65, which caused a lot of different errors. This version contains updated version of the cpp and h file, along with updated version of Makefile. Also, installation instructions have been updated
+
 #### Requirements
 
 ```
@@ -36,9 +39,13 @@ matplotlib
 ```
 
 #### Installation
-
+First clone this repo or download as zip
 ```bash
-cd denseinferencewrapper
+cd DenseInferenceWrapper
+sudo apt-get install build-essential
+sudo apt-get install libboost-all-dev
+sudo apt-get install python-numpy
+sudo apt -y install libpython2.7-dev libboost-python-dev
 make all
 sudo pip install .
 ```
